@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.samsungsami.example.samiiotsimplemonitor;
+package cloud.artik.example.simplemonitor;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -53,9 +53,9 @@ public class MainActivity  extends Activity {
 
         setTitle(R.string.device_monitor_title);
 
-        SAMISession.getInstance().setContext(this);
-        mDeviceID.setText("Device ID: " + SAMISession.getInstance().getDeviceID());
-        mDeviceName.setText("Device Name: " + SAMISession.getInstance().getDeviceName());
+        ArtikCloudSession.getInstance().setContext(this);
+        mDeviceID.setText("Device ID: " + ArtikCloudSession.getInstance().getDeviceID());
+        mDeviceName.setText("Device Name: " + ArtikCloudSession.getInstance().getDeviceName());
 
     }
 
@@ -85,24 +85,24 @@ public class MainActivity  extends Activity {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(mWSUpdateReceiver,
                 makeWebsocketUpdateIntentFilter());
-        mLiveStatus.setText("Start connecting to Live");
-        SAMISession.getInstance().connectLiveWebsocket();
+        mLiveStatus.setText("Start connecting to /live");
+        ArtikCloudSession.getInstance().connectLiveWebsocket();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        SAMISession.getInstance().disconnectLiveWebsocket();
+        ArtikCloudSession.getInstance().disconnectLiveWebsocket();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mWSUpdateReceiver);
     }
 
 
     private static IntentFilter makeWebsocketUpdateIntentFilter() {
         final IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(SAMISession.WEBSOCKET_LIVE_ONOPEN);
-        intentFilter.addAction(SAMISession.WEBSOCKET_LIVE_ONMSG);
-        intentFilter.addAction(SAMISession.WEBSOCKET_LIVE_ONCLOSE);
-        intentFilter.addAction(SAMISession.WEBSOCKET_LIVE_ONERROR);
+        intentFilter.addAction(ArtikCloudSession.WEBSOCKET_LIVE_ONOPEN);
+        intentFilter.addAction(ArtikCloudSession.WEBSOCKET_LIVE_ONMSG);
+        intentFilter.addAction(ArtikCloudSession.WEBSOCKET_LIVE_ONCLOSE);
+        intentFilter.addAction(ArtikCloudSession.WEBSOCKET_LIVE_ONERROR);
         return intentFilter;
     }
 
@@ -110,14 +110,14 @@ public class MainActivity  extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            if (SAMISession.WEBSOCKET_LIVE_ONOPEN.equals(action)) {
-                displayLiveStatus("Websocket live connected");
-            } else if (SAMISession.WEBSOCKET_LIVE_ONMSG.equals(action)) {
-                String status = intent.getStringExtra(SAMISession.DEVICE_DATA);
-                String updateTime = intent.getStringExtra(SAMISession.TIMESTEP);
+            if (ArtikCloudSession.WEBSOCKET_LIVE_ONOPEN.equals(action)) {
+                displayLiveStatus("WebSocket /live connected");
+            } else if (ArtikCloudSession.WEBSOCKET_LIVE_ONMSG.equals(action)) {
+                String status = intent.getStringExtra(ArtikCloudSession.DEVICE_DATA);
+                String updateTime = intent.getStringExtra(ArtikCloudSession.TIMESTEP);
                 displayDeviceStatus(status, updateTime);
-            } else if (SAMISession.WEBSOCKET_LIVE_ONCLOSE.equals(action) ||
-                    SAMISession.WEBSOCKET_LIVE_ONERROR.equals(action)) {
+            } else if (ArtikCloudSession.WEBSOCKET_LIVE_ONCLOSE.equals(action) ||
+                    ArtikCloudSession.WEBSOCKET_LIVE_ONERROR.equals(action)) {
                 displayLiveStatus(intent.getStringExtra("error"));
             }
         }

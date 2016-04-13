@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.samsungsami.example.samiiotsimplemonitor;
+package cloud.artik.example.simplemonitor;
 
 import org.java_websocket.handshake.ServerHandshake;
 

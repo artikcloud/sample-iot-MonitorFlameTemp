@@ -1,4 +1,4 @@
-package io.samsungsami.example.samiiotsimplemonitor;
+package cloud.artik.example.simplemonitor;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

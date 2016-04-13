@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.samsungsami.example.samiiotsimplemonitor;
+package cloud.artik.example.simplemonitor;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,23 +25,23 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SAMISession {
-    private static final String TAG = SAMISession.class.getSimpleName();
+public class ArtikCloudSession {
+    private static final String TAG = ArtikCloudSession.class.getSimpleName();
     private final static String DEVICE_ID = "45176de99e424d98b1a3c42558bfccf4";
     private final static String DEVICE_TOKEN = "1a201a1446fa48bead5ec6a84d417633";
     private final static String DEVICE_NAME = "Combined Flame Detection and Temperature Sensor";
 
-    private static SAMISession ourInstance = new SAMISession();
+    private static ArtikCloudSession ourInstance = new ArtikCloudSession();
     private static Context ourContext;
 
     public final static String WEBSOCKET_LIVE_ONOPEN =
-            "io.samsungsami.example.samiiotmonitor.WEBSOCKET_LIVE_ONOPEN";
+            "cloud.artik.example.iot.WEBSOCKET_LIVE_ONOPEN";
     public final static String WEBSOCKET_LIVE_ONMSG =
-            "io.samsungsami.example.samiiotmonitor.WEBSOCKET_LIVE_ONMSG";
+            "cloud.artik.example.iot.WEBSOCKET_LIVE_ONMSG";
     public final static String WEBSOCKET_LIVE_ONCLOSE =
-            "io.samsungsami.example.samiiotmonitor.WEBSOCKET_LIVE_ONCLOSE";
+            "cloud.artik.example.iot.WEBSOCKET_LIVE_ONCLOSE";
     public final static String WEBSOCKET_LIVE_ONERROR =
-            "io.samsungsami.example.samiiotmonitor.WEBSOCKET_LIVE_ONERROR";
+            "cloud.artik.example.iot.WEBSOCKET_LIVE_ONERROR";
     public final static String SDID = "sdid";
     public final static String DEVICE_DATA = "data";
     public final static String TIMESTEP = "ts";
@@ -49,11 +49,11 @@ public class SAMISession {
 
     private Websocket mLive = null;
 
-    public static SAMISession getInstance() {
+    public static ArtikCloudSession getInstance() {
         return ourInstance;
     }
 
-    private SAMISession() {
+    private ArtikCloudSession() {
         // Do nothing
     }
 
