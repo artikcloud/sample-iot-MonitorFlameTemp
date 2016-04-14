@@ -85,15 +85,15 @@ public class MainActivity  extends Activity {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(mWSUpdateReceiver,
                 makeWebsocketUpdateIntentFilter());
-        mLiveStatus.setText("Start connecting to /live");
-        ArtikCloudSession.getInstance().connectLiveWebsocket();
+        mLiveStatus.setText("Connecting to /live");
+        ArtikCloudSession.getInstance().connectFirehoseWS();//non blocking
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        ArtikCloudSession.getInstance().disconnectLiveWebsocket();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mWSUpdateReceiver);
+        ArtikCloudSession.getInstance().disconnectFirehoseWS(); //non blocking
     }
 
 

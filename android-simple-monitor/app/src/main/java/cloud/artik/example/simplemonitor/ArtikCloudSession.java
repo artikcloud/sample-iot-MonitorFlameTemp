@@ -21,9 +21,17 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import org.java_websocket.handshake.ServerHandshake;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.squareup.okhttp.OkHttpClient;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import cloud.artik.model.Acknowledgement;
+import cloud.artik.model.ActionOut;
+import cloud.artik.model.MessageOut;
+import cloud.artik.model.WebSocketError;
+import cloud.artik.websocket.ArtikCloudWebSocketCallback;
+import cloud.artik.websocket.FirehoseWebSocket;
 
 public class ArtikCloudSession {
     private static final String TAG = ArtikCloudSession.class.getSimpleName();
@@ -47,7 +55,7 @@ public class ArtikCloudSession {
     public final static String TIMESTEP = "ts";
 
 
-    private Websocket mLive = null;
+    private FirehoseWebSocket mFirehoseWS = null; //  end point: /live
 
     public static ArtikCloudSession getInstance() {
         return ourInstance;
@@ -62,80 +70,82 @@ public class ArtikCloudSession {
     public String getDeviceID() {return DEVICE_ID;}
     public String getDeviceName() {return DEVICE_NAME;}
 
-    public void connectLiveWebsocket() {
-        if (mLive == null) {
-            mLive = new Websocket();
+    public void connectFirehoseWS() {
+        createFirehoseWebsocket();
+        try {
+            mFirehoseWS.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-        if(!mLive.isConnected() && !mLive.isConnecting()) {
-            String liveUrl = getLiveUrl();
-            if (liveUrl == null || liveUrl.length() <= 0) {
-                Log.w(TAG, "Cannot to connect to live websocket with empty URL");
-                return;
+    /**
+     * Closes a websocket /live connection
+     */
+    public void disconnectFirehoseWS() {
+        if (mFirehoseWS != null) {
+            try {
+                mFirehoseWS.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            mLive.connect(liveUrl, new WebsocketEvents() {
+        }
+        mFirehoseWS = null;
+    }
+
+    private void createFirehoseWebsocket() {
+        try {
+            OkHttpClient client = new OkHttpClient();
+            client.setRetryOnConnectionFailure(true);
+            mFirehoseWS = new FirehoseWebSocket(client, DEVICE_TOKEN, DEVICE_ID, null, null, null, new ArtikCloudWebSocketCallback() {
                 @Override
-                public void onOpen(ServerHandshake handshakedata) {
-                    Log.d(TAG, "connectLiveWebsocket: onOpen()");
+                public void onOpen(int i, String s) {
+                    Log.d(TAG, "FirehoseWebSocket: onOpen()");
                     final Intent intent = new Intent(WEBSOCKET_LIVE_ONOPEN);
                     LocalBroadcastManager.getInstance(ourContext).sendBroadcast(intent);
                 }
 
                 @Override
-                public void onMessage(String message) {
-                    Log.d(TAG, "connectLiveWebsocket: onMessage(" + message + ")");
-                    try {
-                        JSONObject json = new JSONObject(message);
-                        JSONObject dataNode = json.optJSONObject("data");
-                        JSONObject errorNode = json.optJSONObject("error");
-                        if (dataNode != null) {
-                            final Intent intent = new Intent(WEBSOCKET_LIVE_ONMSG);
-                            intent.putExtra(SDID, json.optString("sdid"));
-                            intent.putExtra(DEVICE_DATA, dataNode.toString());
-                            intent.putExtra(TIMESTEP,json.optString("ts"));
-                            LocalBroadcastManager.getInstance(ourContext).sendBroadcast(intent);
-                            Log.d(TAG, "data: " + dataNode.toString());
-                        } else if(errorNode != null) {
-                            Log.w(TAG, "error on Message: " + errorNode.toString());
-                        }
-                    } catch (JSONException e) {
-                        // This message doesn't contain data node, might be a ping.
-                    }
+                public void onMessage(MessageOut messageOut) {
+                    Log.d(TAG, "FirehoseWebSocket: onMessage(" + messageOut.toString() + ")");
+                    final Intent intent = new Intent(WEBSOCKET_LIVE_ONMSG);
+                    intent.putExtra(SDID, messageOut.getSdid());
+                    intent.putExtra(DEVICE_DATA, messageOut.getData().toString());
+                    intent.putExtra(TIMESTEP, messageOut.getTs().toString());
+                    LocalBroadcastManager.getInstance(ourContext).sendBroadcast(intent);
+                }
+
+                @Override
+                public void onAction(ActionOut actionOut) {
+                }
+
+                @Override
+                public void onAck(Acknowledgement acknowledgement) {
                 }
 
                 @Override
                 public void onClose(int code, String reason, boolean remote) {
                     final Intent intent = new Intent(WEBSOCKET_LIVE_ONCLOSE);
-                    intent.putExtra("error", "mLive is closed. code: " + code + "; reason: " + reason);
+                    intent.putExtra("error", "mFirehoseWS is closed. code: " + code + "; reason: " + reason);
                     LocalBroadcastManager.getInstance(ourContext).sendBroadcast(intent);
                 }
 
                 @Override
-                public void onError(Exception ex) {
+                public void onError(WebSocketError ex) {
                     final Intent intent = new Intent(WEBSOCKET_LIVE_ONERROR);
-                    intent.putExtra("error", "mLive error: " + ex.getMessage());
+                    intent.putExtra("error", "mFirehoseWS error: " + ex.getMessage());
                     LocalBroadcastManager.getInstance(ourContext).sendBroadcast(intent);
                 }
+
+                @Override
+                public void onPing(long timestamp) {
+                    Log.d(TAG, "FirehoseWebSocket::onPing: " + timestamp);
+                }
             });
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-    /**
-     * Closes a websocket connection
-     */
-    public void disconnectLiveWebsocket(){
-        if (mLive != null && mLive.isConnected()){
-            mLive.disconnect();
-            mLive = null;
-        }
-    }
-
-    private String getLiveUrl() {
-        String LIVE_BASE_URL = "wss://api.samsungsami.io/v1.1/live?sdid=";
-        String liveUrl = LIVE_BASE_URL + DEVICE_ID + "&Authorization=bearer+" + DEVICE_TOKEN;
-        Log.d(TAG, liveUrl);
-        return liveUrl;
-    }
-
-
-
 }
