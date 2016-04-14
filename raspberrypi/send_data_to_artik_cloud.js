@@ -1,6 +1,6 @@
 var webSocketUrl = "wss://api.artik.cloud/v1.1/websocket?ack=true";
-var device_id = "45176de99e424d98b1a3c42558bfccf4";//YWU "<YOUR DEVICE ID>";
-var device_token = "1a201a1446fa48bead5ec6a84d417633";//YWU "<YOUR DEVICE TOKEN>";
+var device_id = "<YOUR DEVICE ID>";
+var device_token = "<YOUR DEVICE TOKEN>";
 
 var isWebSocketReady = false;
 var ws = null;

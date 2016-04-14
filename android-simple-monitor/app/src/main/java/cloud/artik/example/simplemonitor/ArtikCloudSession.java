@@ -35,8 +35,8 @@ import cloud.artik.websocket.FirehoseWebSocket;
 
 public class ArtikCloudSession {
     private static final String TAG = ArtikCloudSession.class.getSimpleName();
-    private final static String DEVICE_ID = "45176de99e424d98b1a3c42558bfccf4";
-    private final static String DEVICE_TOKEN = "1a201a1446fa48bead5ec6a84d417633";
+    private final static String DEVICE_ID = "<YOUR DEVICE ID>";
+    private final static String DEVICE_TOKEN = "<YOUR DEVICE TOKEN>";
     private final static String DEVICE_NAME = "Combined Flame Detection and Temperature Sensor";
 
     private static ArtikCloudSession ourInstance = new ArtikCloudSession();
