@@ -1,6 +1,6 @@
-var webSocketUrl = "wss://api.samsungsami.io/v1.1/websocket?ack=true";
-var device_id = "<YOUR DEVICE ID>";
-var device_token = "<YOUR DEVICE TOKEN>";
+var webSocketUrl = "wss://api.artik.cloud/v1.1/websocket?ack=true";
+var device_id = "45176de99e424d98b1a3c42558bfccf4";//YWU "<YOUR DEVICE ID>";
+var device_token = "1a201a1446fa48bead5ec6a84d417633";//YWU "<YOUR DEVICE TOKEN>";
 
 var isWebSocketReady = false;
 var ws = null;
@@ -57,7 +57,7 @@ function register(){
 }
 
 /**
- * Send one message to SAMI
+ * Send one message to ARTIK Cloud
  */
 function sendData(temperature, flameAnalogReading, onFire){
 	try{
@@ -85,7 +85,7 @@ start(); // create websocket connection
 sp.on("open", function () {
 	sp.on('data', function(data) {
             if (!isWebSocketReady){
-                console.log("Websocket is not ready. Skip sending data to SAMI (data:" + data +")");
+                console.log("WebSocket is not ready. Skip sending data to ARTIK Cloud (data:" + data +")");
                 return;
             }
             console.log("Serial port received data:" + data);
