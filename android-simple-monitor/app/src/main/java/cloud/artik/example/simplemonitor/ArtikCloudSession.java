@@ -142,9 +142,7 @@ public class ArtikCloudSession {
                     Log.d(TAG, "FirehoseWebSocket::onPing: " + timestamp);
                 }
             });
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
     }
