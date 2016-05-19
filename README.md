@@ -30,7 +30,7 @@ Setup and Installation:
  1. Build ARTIK Cloud's Java/Android SDK libraries at <a href="https://github.com/artikcloud/artikcloud-java" target="_blank">**GitHub**</a>. The library JAR files are generated under the `target` and `target/lib` directories of the SDK Maven project.
  2. Copy all above library JAR files to the directory `/app/libs` in the Android project.
  2. Import `android-simple-monitor` as an existing Android Studio project in Android Studio IDE.
- 3. If you have not connected the IoT system as a device in the ARTIK Cloud User Portal, please consult [Step 1](//link_to_blog#step-1-connect-a-device-in-the-sami-user-portal) in the blog post. Then, in the [User Portal](https://www.artik.cloud), click the Settings icon of the your device. In the pop-up, get the device ID and token to replace `YOUR DEVICE ID` and `YOUR DEVICE TOKEN` in `ArtikCloudSession.java`.
+ 3. If you have not connected the IoT system as a device in My ARTIK Cloud, please consult [Step 1](//link_to_blog#step-1-connect-a-device-in-the-sami-user-portal) in the blog post. Then, in [My ARTIK Cloud](https://www.artik.cloud), click the Settings icon of the your device. In the pop-up, get the device ID and token to replace `YOUR DEVICE ID` and `YOUR DEVICE TOKEN` in `ArtikCloudSession.java`.
  4. Build the app and deploy APK into your Android phone
 
 Sketch Program for Arduino Uno Board
