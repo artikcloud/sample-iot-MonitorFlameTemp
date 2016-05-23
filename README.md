@@ -5,7 +5,7 @@ Build a fire and temperature monitoring system using ARTIK Cloud, off-the-shelf 
 Introduction
 -------------
 
-The blog post [Monitor Fire and Temperature Using an Arduino, Raspberry Pi and ARTIK Cloud](https://blog.samsungsami.io/development/iot/mobile/2015/08/27/monitor-fire-and-temperature-using-an-arduino-raspberry-pi-and-sami.html) at http://artik.io/blog/cloud describes what the system does and how it is implemented.
+The blog post [Monitor Fire and Temperature Using an Arduino, Raspberry Pi and ARTIK Cloud](https://www.artik.io/2016/05/monitor-fire-temperature-using-artik-cloud-open-source-iot-hardware-android/) at http://artik.io/blog/cloud describes what the system does and how it is implemented.
 
 Check out [Demo video.](https://blog.samsungsami.io/development/iot/mobile/2015/08/27/monitor-fire-and-temperature-using-an-arduino-raspberry-pi-and-sami.html#demo-video)
 
