@@ -30,18 +30,18 @@ Setup and Installation:
  1. Build ARTIK Cloud's Java/Android SDK libraries at <a href="https://github.com/artikcloud/artikcloud-java" target="_blank">**GitHub**</a>. The library JAR files are generated under the `target` and `target/lib` directories of the SDK Maven project.
  2. Copy all above library JAR files to the directory `/app/libs` in the Android project.
  2. Import `android-simple-monitor` as an existing Android Studio project in Android Studio IDE.
- 3. If you have not connected the IoT system as a device in My ARTIK Cloud, please consult [Step 1](//link_to_blog#step-1-connect-a-device-in-the-sami-user-portal) in the blog post. Then, in [My ARTIK Cloud](https://www.artik.cloud), click the Settings icon of the your device. In the pop-up, get the device ID and token to replace `YOUR DEVICE ID` and `YOUR DEVICE TOKEN` in `ArtikCloudSession.java`.
+ 3. If you have not connected the IoT system as a device in My ARTIK Cloud, please consult **Step 1: Connect a device in My ARTIK Cloud** in the [blog post](https://www.artik.io/2016/05/monitor-fire-temperature-using-artik-cloud-open-source-iot-hardware-android/). Then, in [My ARTIK Cloud](https://www.artik.cloud), click the Settings icon of the your device. In the pop-up, get the device ID and token to replace `YOUR DEVICE ID` and `YOUR DEVICE TOKEN` in `ArtikCloudSession.java`.
  4. Build the app and deploy APK into your Android phone
 
 Sketch Program for Arduino Uno Board
 -------------
 
-The code is located in `arduino` directory. Consult [Step 2: Set up the Arduino](https://blog.samsungsami.io/development/iot/mobile/2015/08/27/monitor-fire-and-temperature-using-an-arduino-raspberry-pi-and-sami.html#step-2-set-up-the-arduino) in the blog to set up the board and load the program to the board.
+The code is located in `arduino` directory. Consult **Step 2: Set up the Arduino** in the [blog](https://www.artik.io/2016/05/monitor-fire-temperature-using-artik-cloud-open-source-iot-hardware-android/) to set up the board and load the program to the board.
 
 Nodejs Program for Raspberry Pi
 -------------
 
-The code is located in `raspberrypi` directory. Consult [Step 3: Set up the Raspberry Pi](https://blog.samsungsami.io/development/iot/mobile/2015/08/27/monitor-fire-and-temperature-using-an-arduino-raspberry-pi-and-sami.html#step-3-set-up-the-raspberry-pi) in the blog to install the packages and to run the program on the Pi.
+The code is located in `raspberrypi` directory. Consult **Step 3: Set up the Raspberry Pi** in the [blog](https://www.artik.io/2016/05/monitor-fire-temperature-using-artik-cloud-open-source-iot-hardware-android/) to install the packages and to run the program on the Pi.
 
 More about SAMI
 ---------------
