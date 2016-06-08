@@ -21,8 +21,6 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.squareup.okhttp.OkHttpClient;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -95,9 +93,7 @@ public class ArtikCloudSession {
 
     private void createFirehoseWebsocket() {
         try {
-            OkHttpClient client = new OkHttpClient();
-            client.setRetryOnConnectionFailure(true);
-            mFirehoseWS = new FirehoseWebSocket(client, DEVICE_TOKEN, DEVICE_ID, null, null, null, new ArtikCloudWebSocketCallback() {
+            mFirehoseWS = new FirehoseWebSocket(DEVICE_TOKEN, DEVICE_ID, null, null, null, new ArtikCloudWebSocketCallback() {
                 @Override
                 public void onOpen(int i, String s) {
                     Log.d(TAG, "FirehoseWebSocket: onOpen()");
@@ -121,6 +117,7 @@ public class ArtikCloudSession {
 
                 @Override
                 public void onAck(Acknowledgement acknowledgement) {
+                    Log.d(TAG, "FirehoseWebSocket::onAck: ");
                 }
 
                 @Override
