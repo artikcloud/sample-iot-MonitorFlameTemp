@@ -7,7 +7,7 @@ Introduction
 
 The blog post [Monitor Fire and Temperature Using ARTIK Cloud, Open-Source IoT Hardware and Android](https://www.artik.io/2016/05/monitor-fire-temperature-using-artik-cloud-open-source-iot-hardware-android/) at http://artik.io/blog/cloud describes what the system does and how it is implemented.
 
-Check out [Demo video.](https://blog.samsungsami.io/development/iot/mobile/2015/08/27/monitor-fire-and-temperature-using-an-arduino-raspberry-pi-and-sami.html#demo-video)
+Check out [Demo video.](https://www.artik.io/2016/05/monitor-fire-temperature-using-artik-cloud-open-source-iot-hardware-android/#demo-video)
 
 This repository contains the following software:
 
@@ -27,11 +27,11 @@ Prerequisites:
 
 Setup and Installation:
 
- 1. Build ARTIK Cloud's Java/Android SDK libraries at <a href="https://github.com/artikcloud/artikcloud-java" target="_blank">**GitHub**</a>. The library JAR files are generated under the `target` and `target/lib` directories of the SDK Maven project.
- 2. Copy all above library JAR files to the directory `/app/libs` in the Android project.
- 2. Import `android-simple-monitor` as an existing Android Studio project in Android Studio IDE.
- 3. If you have not connected the IoT system as a device in My ARTIK Cloud, please consult **Step 1: Connect a device in My ARTIK Cloud** in the [blog post](https://www.artik.io/2016/05/monitor-fire-temperature-using-artik-cloud-open-source-iot-hardware-android/). Then, in [My ARTIK Cloud](https://www.artik.cloud), click the Settings icon of the your device. In the pop-up, get the device ID and token to replace `YOUR DEVICE ID` and `YOUR DEVICE TOKEN` in `ArtikCloudSession.java`.
- 4. Build the app and deploy APK into your Android phone
+ 1. Import `android-simple-monitor` as an existing Android Studio project in Android Studio IDE.
+ 2. If you have not connected the IoT system as a device in My ARTIK Cloud, please consult **Step 1: Connect a device in My ARTIK Cloud** in the [blog post](https://www.artik.io/2016/05/monitor-fire-temperature-using-artik-cloud-open-source-iot-hardware-android/). Then, in [My ARTIK Cloud](https://www.artik.cloud), click the Settings icon of the your device. In the pop-up, get the device ID and token to replace `YOUR DEVICE ID` and `YOUR DEVICE TOKEN` in `ArtikCloudSession.java`.
+ 3. Build the app and deploy APK into your Android phone
+
+This sample application uses ARTIK Cloud Java/Android SDK library downloaded from Maven Central Repository. The version of the library is specified in `app/build.gradle`of the Android project. You may also build ARTIK Cloud Java/Android SDK library using the source code at <a href="https://github.com/artikcloud/artikcloud-java" target="_blank">GitHub</a>.
 
 Sketch Program for Arduino Uno Board
 -------------
